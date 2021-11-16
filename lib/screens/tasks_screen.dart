@@ -1,12 +1,24 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/models/task.dart';
 import 'package:todo/screens/add_task_screen.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-class TasksScreen extends StatelessWidget {
+List<Task> tasks = [
+  Task(name: 'Buy Milk'),
+  Task(name: 'Buy Eggs'),
+  Task(name: 'Buy Bread'),
+];
+
+class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
 
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +34,13 @@ class TasksScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
-                child: AddTaskScreen(),
+                child: AddTaskScreen(
+                  addTaskCallback: (newTask) {
+                    setState(() {
+                      tasks.add(Task(name: newTask));
+                    });
+                  },
+                ),
               ),
             ),
           );
@@ -36,7 +54,7 @@ class TasksScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 60, left: 30, right: 30, bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
@@ -56,7 +74,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 tasks',
+                  '${tasks.length} Tasks',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
@@ -72,7 +90,7 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TasksList(),
+              child: TasksList(tasks: tasks),
             ),
           ),
         ],
