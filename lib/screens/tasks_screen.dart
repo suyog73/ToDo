@@ -9,6 +9,7 @@ List<Task> tasks = [
   Task(name: 'Buy Milk'),
   Task(name: 'Buy Eggs'),
   Task(name: 'Buy Bread'),
+  Task(name: 'Call Aai'),
 ];
 
 class TasksScreen extends StatefulWidget {
