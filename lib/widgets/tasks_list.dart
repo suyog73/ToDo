@@ -4,6 +4,8 @@ import 'package:todo/models/task_data.dart';
 import 'package:todo/widgets/task_tile.dart';
 
 class TasksList extends StatelessWidget {
+  const TasksList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskData>(
@@ -14,10 +16,10 @@ class TasksList extends StatelessWidget {
             return TaskTile(
               isChecked: task.isDone,
               taskTitle: task.name,
-              checkBoxCallBack: (a) {
+              checkBoxCallBack: (checkboxState) {
                 taskData.updateTask(task);
               },
-              // longPressCallBack: (aw) => taskData.deleteTask(task),
+              longPressCallBack: () => taskData.deleteTask(task),
             );
           },
           itemCount: taskData.taskCount,

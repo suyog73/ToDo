@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:todo/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  const AddTaskScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String addTaskTitle = '';
