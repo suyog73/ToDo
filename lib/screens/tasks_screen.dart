@@ -1,25 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/models/task_data.dart';
 import 'package:todo/screens/add_task_screen.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-List<Task> tasks = [
-  Task(name: 'Buy Milk'),
-  Task(name: 'Buy Eggs'),
-  Task(name: 'Buy Bread'),
-  Task(name: 'Call Aai'),
-];
-
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +22,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
-                child: AddTaskScreen(
-                  addTaskCallback: (newTask) {
-                    setState(() {
-                      tasks.add(Task(name: newTask));
-                    });
-                  },
-                ),
+                child: AddTaskScreen(),
               ),
             ),
           );
@@ -75,7 +56,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
@@ -91,7 +72,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TasksList(tasks: tasks),
+              child: TasksList(),
             ),
           ),
         ],
